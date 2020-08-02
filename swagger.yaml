@@ -1,0 +1,607 @@
+openapi: 3.0.0
+
+info:
+  title: 勉強用個人アプリ
+  description: フロントアプリ -> アプリサーバ
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/v1/products:
+    get:
+      summary: 商品一覧
+      tags:
+        - product
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: 商品一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: 商品投稿
+      tags:
+        - product
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/ProductParameter'
+      responses:
+        200:
+          description: 商品投稿成功
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/product/{productId}:
+    get:
+      summary: 商品詳細
+      tags:
+        - product
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: 商品ID
+          schema:
+            type: string
+            example: 01E1BF2XSB9E1SBGEGHNRK4KPZ
+      responses:
+        200:
+          description: 商品詳細
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: 商品編集
+      tags:
+        - product
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: 商品ID
+          schema:
+            type: string
+            example: 01E1BF2XSB9E1SBGEGHNRK4KPZ
+      requestBody:
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/ProductParameter'
+      responses:
+        200:
+          description: 商品更新成功
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    delete:
+      summary: 商品削除
+      tags:
+        - product
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: 商品ID
+          schema:
+            type: string
+            example: 2
+      responses:
+        200:
+          description: 商品削除成功
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /api/v1/products/search:
+    get:
+      summary: 商品検索
+      tags:
+        - product
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/ProductKeywordQuery'
+      responses:
+        200:
+          description: 商品一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /api/v1/products/image:
+    post:
+      summary: 商品画像アップロード
+      tags:
+        - product
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          image/*:
+            schema:
+              type: string
+              format: base64
+      responses:
+        200:
+          description: 商品画像url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadedProductImage'
+
+        400:
+          description: Validationエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: 認証エラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 401,
+                  "message": "認証情報が不正です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: NotFoundエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 404,
+                  "message": "リソースが見つかりません"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: InternalServerエラー
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 500,
+                  "message": "サーバーエラーが発生しました"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+        503:
+          description: サーバーメンテナンス
+          content:
+            application/json:
+              example: |
+                {
+                  "status": 503,
+                  "message": "サーバーメンテナンス中です"
+                }
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: Credentials or access token for API
+
+  parameters:
+    ProductKeywordQuery:
+      in: query
+      name: keyword
+      required: true
+      description: 検索キーワード
+      schema:
+        type: string
+        example: アップル
+        minLength: 1
+        maxLength: 128
+
+  schemas:
+    Products:
+      type: object
+      required:
+        - name
+        - price
+        - explanation
+        - productImageUrl
+      properties:
+        name:
+          type: string
+          description: 商品名
+          example: コカコーラ
+        price:
+          type: integer
+          description: 値段
+          example: 148
+        explanation:
+          type: string
+          description: 商品説明
+          example: 2Lボトルコーラです。
+        productImageUrl:
+          type: string
+          description: 商品画像
+          minLength: 1
+          maxLength: 256
+          example: "https://hogehogeSampleImage.com"
+          
+    ProductParameter:
+      type: object
+      description: 商品作成パラメータ
+      required:
+        - name
+        - price
+        - explanation
+      properties:
+        name:
+          type: string
+          description: 商品名
+          example: apple watch
+          minLength: 1
+          maxLength: 128
+        price:
+          type: integer
+          description: 値段
+          example: 148
+        explanation:
+          type: string
+          description: 商品説明
+          example: 商品説明です
+
+    UploadedProductImage:
+      type: object
+      description: アップロードした商品画像の情報
+      required: 
+        - url
+      properties:
+        productImageUrl:
+          type: string
+          example: "https://hogehogeSampleImage.com"
+    
+    Error:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: バリデーションエラーが発生しました
+        validationsInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationInfo'
+
+    ValidationInfo:
+      type: object
+      required:
+        - field
+        - rejectedValue
+        - message
+      properties:
+        field:
+          type: string
+          example: name
+        rejectedValue:
+          type: string
+          example: Null Value
+        message:
+          type: string
+          example: name must not be null or empty.
+
