@@ -22,5 +22,4 @@ jobs:
           java-version: 8
       
       - name: generate
-        run: |
-          sh ./.github/actions/code-gen/entrypoint.sh
+        run: sh ./.github/actions/code-gen/entrypoint.sh
