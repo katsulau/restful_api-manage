@@ -604,4 +604,3 @@ components:
         message:
           type: string
           example: name must not be null or empty.
-

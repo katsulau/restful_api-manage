@@ -15,7 +15,7 @@ git remote set-url origin https://github.com/katsulau/restful_api-manage.git
 git checkout $GIT_BRANCH
 
 # OpenAPI Generate
-export JAR_PATH=./pkg-openapi-generator/code-gen/openapi-generator-cli.jar
+export JAR_PATH=./openapi-generator-cli.jar
 ## validation
 java -jar ${JAR_PATH} validate -i swagger.yaml
 ## remove old generated code
